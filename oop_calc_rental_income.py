@@ -1,32 +1,35 @@
 class Home:
-    def __init__(self, income, expenses, cash_flow, cash_on_cash_roi):
+    def __init__(self, income, expenses, investments):
         self.income = income
         self.expenses = expenses
-        self.cash_flow = cash_flow
-        self.cash_on_cash_roi = cash_on_cash_roi
+        self.cash_flow = 0
+        self.roi = 0
+        self.investments = investments
 
-    def income(self):
-        income = input("Enter Income(or type 'q' to exit): ")
-        if income.lower() == "q":
-            sys.exit()
+    def cash_flow(self):
+        self.cash_flow = self.income - self.expenses
+        return self.cash_flow
 
-    def expenses(self):
-        expenses = input("Enter Income(or type 'q' to exit): ")
-        if expenses.lower() == "q":
-            sys.exit()
+    def assets(self,amount):
+        self.income += amount
 
     def calculate_cash_flow(self):
-        return self.income - self.expenses
+        self.cash_flow = self.cash_flow * 12
+        return self.cash_flow
     
-    def calculate_cash_on_cash_return(self):
-        total_cash_investment = (self.income - self.expenses) 
-        annual_cash_flow = self.calculate_cash_flow() * 12
-        return (annual_cash_flow / total_cash_investment) * 100
+    def calculate_roi(self):
+        self.roi = (self.cash_flow - self.investments) * 100
+        return self.roi
     
+monthly_income = int(input("Enter your monthly income: "))
+assets = int(input("Enter your assets: "))
+monthly_expenses = int(input("Enter your monthly expenses: "))
+investments = int(input("Enter your total investments: "))
 
-print(income)
-print(expenses)
-print(cash_flow)
-print(cash_on_cash_roi)
-    
+r = Home(monthly_income, monthly_expenses, investments)
+r.assets(assets)
+r.cash_flow()
+r.calculate_cash_flow()
+r.calculate_roi()
 
+print("Your total ROI is: " + str(r.roi) + "%") # print(r.roi)
